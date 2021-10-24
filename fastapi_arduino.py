@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import uvicorn
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 import logging
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
@@ -8,7 +8,7 @@ app = FastAPI(title="Arduino FastAPI", description="Here's our API...", version=
 
 @app.post('/api/arduino', summary="", description="")
 
-async def arduino():
+async def arduino(request: Request):
     pass
 
 if __name__ == "main":
