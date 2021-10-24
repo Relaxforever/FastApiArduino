@@ -7,9 +7,14 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 app = FastAPI(title="Arduino FastAPI", description="Here's our API...", version="1.0")
 
 @app.post('/api/arduino', summary="", description="")
-
 async def arduino(request: Request):
+    print("Arduino")
     pass
 
-if __name__ == "main":
+#@app.get('/')
+#async def arduino(request: Request):
+#    return {"message": "Hello World"}
+#
+if __name__ == "__main__":
+
     uvicorn.run("fastapi_arduino:app", host="127.0.0.1", port=4000, log_level="info")
