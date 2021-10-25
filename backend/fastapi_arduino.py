@@ -3,7 +3,16 @@ import uvicorn
 from fastapi import FastAPI, Request
 import logging
 from fastapi.middleware.cors import CORSMiddleware
+import csv
+from random import randrange
 
+
+#header = ['temp',  'distance']
+
+class data_temp_distance:
+    def __init__(self,temp, distance):
+        self.temp = temp
+        self.distance = distance
 
 app = FastAPI()
 
@@ -52,15 +61,37 @@ app = FastAPI(title="Arduino FastAPI",
 
 @app.post('/api/arduino', summary="", description="")
 async def arduino(request: Request):
+    with open('arduino_data.csv', 'a', encoding='UTF8') as f:
+        writer = csv.writer(f)
+        # write the data
+        data = [randrange(40), randrange(30)]
+        print(data)
+        writer.writerow(data)
     print("Arduino")
     pass
 
 
 @app.get("/todo", tags=["todos"])
-async def get_todos() -> dict:
-    return {"data": Temp_Data}
+async def get_temperature():
+    with open('arduino_data.csv', 'r', encoding='UTF8') as f:
+        csv_reader = csv.reader(f)
+        line_count = 0
+        data_object = []
+
+        for row in csv_reader:
+            if line_count == 0:
+                print(f'las columnas actuales son {", ".join(row)}')
+                line_count += 1
+            else:
+                data_object.append(data_temp_distance(row[0], row[1]))
+                line_count += 1
+    print(f'Processed {line_count} lines')
+
+    return {"body": data_object}
 
 if __name__ == "__main__":
 
     uvicorn.run("fastapi_arduino:app", host="127.0.0.1",
                 port=4000, log_level="info")
+    
+
