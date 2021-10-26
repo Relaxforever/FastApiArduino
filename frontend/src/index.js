@@ -1,14 +1,14 @@
 import React from "react";
 import { render } from 'react-dom';
-import { ThemeProvider } from "@chakra-ui/react";
-
 import Header from "./components/Header";
+import Charts from "./components/Charts";
 
 function App() {
   return (
-    <ThemeProvider>
+    <>
       <Header />
-    </ThemeProvider>
+      <Charts />
+    </>
   )
 }
 
