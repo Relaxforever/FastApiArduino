@@ -4,15 +4,23 @@ from fastapi import FastAPI, Request
 import logging
 from fastapi.middleware.cors import CORSMiddleware
 import csv
-from random import randrange
+#from random import randrange
+from pydantic import BaseModel
 
 
 #header = ['temp',  'distance']
 
 class data_temp_distance:
-    def __init__(self,temp, distance):
+    def __init__(self, temp, distance):
         self.temp = temp
         self.distance = distance
+
+    class Config:
+        schema_extra = {
+            "temp": 32,
+            "distance": 10
+        }
+
 
 app = FastAPI()
 
@@ -59,12 +67,12 @@ app = FastAPI(title="Arduino FastAPI",
               description="Here's our API...", version="1.0")
 
 
-@app.post('/api/arduino', summary="", description="")
+@app.post('/api/arduino', summary="", description="", items=data_temp_distance)
 async def arduino(request: Request):
     with open('arduino_data.csv', 'a', encoding='UTF8') as f:
         writer = csv.writer(f)
         # write the data
-        data = [randrange(40), randrange(30)]
+        data = [Request.temp, Request.distance]
         print(data)
         writer.writerow(data)
     print("Arduino")
@@ -93,5 +101,3 @@ if __name__ == "__main__":
 
     uvicorn.run("fastapi_arduino:app", host="127.0.0.1",
                 port=4000, log_level="info")
-    
-
