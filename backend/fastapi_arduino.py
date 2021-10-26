@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import uvicorn
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
 import logging
 from fastapi.middleware.cors import CORSMiddleware
 import csv
@@ -10,46 +10,18 @@ from pydantic import BaseModel
 
 #header = ['temp',  'distance']
 
-class data_temp_distance:
-    def __init__(self, temp, distance):
-        self.temp = temp
-        self.distance = distance
+class DataTempDistance(BaseModel):
+    temp: float
+    distance: int
 
-    class Config:
-        schema_extra = {
-            "temp": 32,
-            "distance": 10
-        }
 
 
 app = FastAPI()
 
-Temp_Data = [
-    {
-        "temp": 32,
-        "distance": 15
-    },
-    {
-        "temp": 33,
-        "distance": 15
-    },
-    {
-        "temp": 32.3,
-        "distance": 10
-    },
-    {
-        "temp": 32.3,
-        "distance": 10
-    },
-    {
-        "temp": 32.3,
-        "distance": 10
-    }
-]
-
 origins = [
     "http://localhost:3000",
     "localhost:3000"
+    "*"
 ]
 
 
@@ -67,12 +39,13 @@ app = FastAPI(title="Arduino FastAPI",
               description="Here's our API...", version="1.0")
 
 
-@app.post('/api/arduino', summary="", description="", items=data_temp_distance)
-async def arduino(request: Request):
+@app.post('/api/arduino', summary="", description="")
+async def arduino(request: DataTempDistance):
     with open('arduino_data.csv', 'a', encoding='UTF8') as f:
         writer = csv.writer(f)
         # write the data
-        data = [Request.temp, Request.distance]
+        #print(request)
+        data = [request.temp, request.distance]
         print(data)
         writer.writerow(data)
     print("Arduino")
@@ -91,7 +64,7 @@ async def get_temperature():
                 print(f'las columnas actuales son {", ".join(row)}')
                 line_count += 1
             else:
-                data_object.append(data_temp_distance(row[0], row[1]))
+                data_object.append(DataTempDistance(row[0], row[1]))
                 line_count += 1
     print(f'Processed {line_count} lines')
 
