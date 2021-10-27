@@ -1,5 +1,15 @@
+.Top-side-part {
+    display: flex;
+    justify-content: space-around;
+}
+
 .chart-distancia {
     display: flex;
     width: 400px;
     height:300px;
+}
+.chart-tempGauger {
+    display: flex;
+    width: 400px;
+    height: 300px;
 }

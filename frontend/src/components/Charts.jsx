@@ -1,8 +1,12 @@
 import React from "react";
-import {Line} from 'react-chartjs-2'
+import { Line } from 'react-chartjs-2'
+import GaugeChart from 'react-gauge-chart'
+
 import './Charts.css'
 const Charts = () => {
-    return( 
+    return(
+        <>
+    <div className="Top-side-part">
     <div className="chart-distancia">
         <Line
         data={{
@@ -19,6 +23,14 @@ const Charts = () => {
         legend={{position: 'top'}}
         />
          </div>
+         <div className="chart-tempGauger">
+         <GaugeChart id="gauge-chart2" 
+            nrOfLevels={20} 
+            percent={0.86} 
+            />
+         </div>
+         </div>
+         </>
     )
 }
 export default Charts;
