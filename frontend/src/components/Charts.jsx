@@ -23,15 +23,17 @@ const Charts = () => {
          const get_DataInterval = setInterval(() => {
             GetDataDisTemp(setDistancia);
             
-         }, 20500)
+         }, 2500)
          return () => clearInterval(get_DataInterval);
       })
     //GetDataDisTemp();
-    
+    var result_distancias = 0
+    var result_temperatura = 0
      if (distancia){
         console.log(distancia[distancia.length - 1])
-        var result = distancia.map(datos => (datos.distance))
-        console.log(result)
+         result_distancias = distancia.map(datos => (datos.distance))
+         result_temperatura = distancia.map(datos => (datos.temp))
+        console.log(result_distancias)
      } 
     return(
         <>
@@ -39,10 +41,10 @@ const Charts = () => {
     <div className="chart-grafico">
         <Line
         data={{
-            labels: ['dist 1', 'dist 2', 'dist 3'],
+            labels: result_distancias,
             datasets: [{
                 label: 'Distancia', 
-                data: [0, 59, 75],
+                data: result_temperatura,
                 fill: false,
                 borderColor: 'rgba(220, 65, 65, 1)',
                 backgroundColor: 'rgba(255, 99, 132, 0.2)',
