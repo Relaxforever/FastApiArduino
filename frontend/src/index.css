@@ -1,9 +1,19 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    background-color: #EEEEEE;
+}
+
 .m-header {
-    background-color: #C1DFF0;
+    background-color: transparent;
+    box-shadow: inset 0 58px 30px -30px rgb(0 0 0 / 20%);
     width: 100%;
 }
 
 .m-body {
-    background-color: #DDDDDD;
+    padding-top: 40px;
+    
     
 }

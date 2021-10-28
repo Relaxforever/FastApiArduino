@@ -1,8 +1,14 @@
 
 .header {
     text-align: center;
-    background-color: #C1DFF0;
+    background-color: transparent;
+    font-family: "Helvetica Neue", Helvetica, Arial;
+    font-size: 15px;
+    
 }
 .title-h1 {
     align-items: center;
+}
+h1 {
+    margin:0;
 }

@@ -3,13 +3,22 @@
     justify-content: space-around;
 }
 
-.chart-distancia {
+.chart-grafico {
     display: flex;
+    flex-direction: column;
     width: 400px;
     height:300px;
+   
+    align-items: center;
+    justify-content: center;
+    
 }
-.chart-tempGauger {
-    display: flex;
-    width: 400px;
-    height: 300px;
+text {
+    fill: #212121 !important;
+}
+.chart-Texto {
+    color: #212121;
+        margin-top: 10px;
+        font-family: "Helvetica Neue", Helvetica, Arial;
+        font-size: 15px;
 }
